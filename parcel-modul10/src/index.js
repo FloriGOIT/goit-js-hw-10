@@ -10,6 +10,8 @@ axios.defaults.headers.common['x-api-key'] =
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 
 const selectEl = document.querySelector('.breed-select');
+selectEl.style.width = "200px";
+selectEl.style.marginTop = "15px";
 const textMarkEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
 const errorEl = document.querySelector('.error');
@@ -51,11 +53,28 @@ function onChangeSelect(event) {
 
       const { url, breeds } = data[0];
 
-      textMarkEl.innerHTML = `<img src="${url}" alt="${breeds[0].name}" width="400"/>
-      <div class="box"><h2>${breeds[0].name}</h2><p>${breeds[0].description}</p>
-      <p><strong>Temperament:</strong> ${breeds[0].temperament}</p></div>`;
-
+      textMarkEl.innerHTML = `
+      <div class="box">
+         <img src="${url}" alt="${breeds[0].name}" width="100"/>
+         <div id="second-box">
+            <h2>${breeds[0].name}</h2><p>${breeds[0].description}</p>
+            <p><strong>Temperament:</strong> ${breeds[0].temperament}</p>
+         </div>
+      </div>`;
+      const container = document.querySelector(".box");
+      container.style.display = "flex";
+      container.style.flexDirection = "row";
       textMarkEl.classList.remove('is-hidden');
+
+      const img = document.querySelector("img");
+      img.style.width="400px";
+      img.style.height="300px";
+      img.style.marginRight="20px";
+
+      const secondBox = document.querySelector("#second-box");
+      secondBox.style.display = "flex";
+      secondBox.style.flexDirection = "column";
+      secondBox.style.gap = "20px";
     })
     .catch(onFetchError);
 }
@@ -68,3 +87,5 @@ function onFetchError() {
     'Oops! Something went wrong! Try reload the page or select another cat breed!'
   );
 }
+const body = document.body;
+console.log(body)
